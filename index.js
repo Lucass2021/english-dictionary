@@ -5,18 +5,20 @@ const titleElement = document.querySelector(".title");
 const meaningElement = document.querySelector(".meaning");
 const audioElement = document.querySelector("#audio");
 const containerElement = document.querySelector(".container");
+const loader = document.querySelector(".loader");
 
 async function fetchAPI(word) {
   try {
-    // const loading = `<img src="./spinner.svg" alt="Loading"/>`;
-    // meaningContainer.innerHTML = loading;
-
     infoText.style.display = "block";
     meaningContainer.style.display = "none";
-    infoText.innerText = `Search the meaning of "${word}"`;
+    infoText.innerHTML = `<img src="./spinner.svg" alt="Loading"/>`;
+
+    loader.style.display = "block";
 
     const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
     const result = await fetch(url).then((res) => res.json());
+
+    loader.style.display = "none";
 
     if (result.title) {
       meaningContainer.style.display = "block";
